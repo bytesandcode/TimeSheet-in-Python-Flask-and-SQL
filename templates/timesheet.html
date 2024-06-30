@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    TimeSheet
+{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="/timesheet/all" class="btn btn-secondary">All</a>
+            <a href="/timesheet/today" class="btn btn-secondary">Today</a>
+            <a href="/timesheet/weekly" class="btn btn-secondary">This Week</a>
+            <a href="/timesheet/monthly" class="btn btn-secondary">This Month</a>
+        </div>
+    </div>
+</div>
+<br>
+<div class="table-responsive">
+    <main class="container text-center">
+        <table class="table table-bordered table-hover table-fixed-header">
+            <thead class="table-dark">
+                <tr>
+                    <th>Project</th>
+                    <th>BU Vertical</th>
+                    <th>Task</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Duration (HH:MM)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for timesheet in timesheets  %}
+                <tr>
+                    <td>{{ timesheet["p_name"] }}</td>
+                    <td>{{ timesheet["bu_vertical"] }}</td>
+                    <td>{{ timesheet["Task"] }}</td>
+                    <td>{{ timesheet["type"] }}</td>
+                    <td>{{ timesheet["description"] }}</td>
+                    <td>{{ timesheet["date"] }}</td>
+                    <td>
+                        {% set duration = timesheet["Duration"] | int %}
+                        {{ duration // 60 }}:{{ duration % 60 }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</div>
+{% endblock %}

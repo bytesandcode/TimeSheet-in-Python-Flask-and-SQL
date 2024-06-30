@@ -1,0 +1,59 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+nav .navbar-brand .orange
+{
+    color: #d56001;
+}
+
+nav .navbar-brand .black
+{
+    color: #000000;
+}
+
+.btn-orange
+{
+    background-color:#d56001;
+    border-color: #d56001;
+}
+
+.btn-orange:hover
+{
+    background-color: black;
+    border-color: black;
+}
+
+.table-fixed-header thead {
+    position: sticky;
+    top: 0;
+    background-color: #343a40;
+    color: white;
+    z-index: 1;
+}
+
+.table-responsive {
+    max-height: 400px;
+    overflow-y: scroll;
+    z-index: 0;
+}

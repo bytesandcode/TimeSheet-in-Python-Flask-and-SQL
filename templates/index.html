@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+<main class="container text-center">
+    <form action="/addproject" method="post">
+        <div class="d-flex flex-row">
+            <div class="p-2">
+                <input type="text" class="form-control" name="p_name">
+            </div>
+            <div class="p-2">
+                <button class="btn btn-dark btn-orange" type="submit" id="addProjectBtn">Add a Project</button>
+            </div>
+        </div>
+    </form>
+</main>
+
+
+<main class="container text-center">
+
+        <div class="table-responsive">
+            <table id="projectTable" class="table table-bordered table-hover table-fixed-header">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center">Project</th>
+                        <th class="text-center">BU Vertical</th>
+                        <th class="text-center">Task</th>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Duration</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Submit</th>
+                        <th class="text-center">Close</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for projectRecord in projectRecords  %}
+                    <form action="/addtask" method="post" id='{{ projectRecord["id"] }}'>
+                    <tr>
+                        <input type="hidden" name="p_id" value='{{ projectRecord["id"] }}'>
+                        <td name="projectname">{{ projectRecord["p_name"]}}</td>
+                        <td>
+                            <select class="form-select" name="buvertical">
+                                <option value="Explorer">Explorer</option>
+                                <option value="PEN">PEN</option>
+                                <option value="Finance">Finance</option>
+                                <option value="CertPub">CertPub</option>
+                            </select>
+                        </td>                        
+                        <td><input type="text" class="form-control" name="task"></td>
+                        <td>
+                            <select class="form-select" name="type">
+                                <option value="core">Core</option>
+                                <option value="non-core">Non-Core</option>
+                            </select>
+                        </td>
+                        <td><input type="date" class="form-control" id='date_{{projectRecord["id"]}}' name="date" value=""></td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="hours" placeholder="Hrs" min="0" max="24" step="1">
+                                <input type="number" class="form-control" name="minutes" placeholder="Mins" min="0" max="59" step="1">
+                            </div>
+                        </td>
+                        <td><input type="text" class="form-control" name="description"></td>
+                        <td class="text-end">
+                                <button class="btn btn-dark btn-orange" type="submit" id='tasksubmit__{{projectRecord["id"]}}' form='{{ projectRecord["id"] }}'><i class="bi bi-check"></i></button>
+                        </td>
+                    </form>
+                        <td class="text-center">
+                            <form action="/projectclose" method="post" id='close_{{ projectRecord["id"] }}'>
+                                <button class="btn btn-dark btn-orange" name = "closeproject" type="submit" value='{{projectRecord["id"]}}'><i class="bi bi-x"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    
+</main>
+
+<script>
+    {% for projectRecord in projectRecords %}
+    document.getElementById('date_{{ projectRecord["id"] }}').valueAsDate = new Date();
+    {% endfor %}
+</script>
+
+
+{% endblock %}
